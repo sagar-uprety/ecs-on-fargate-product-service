@@ -10,7 +10,7 @@ data "terraform_remote_state" "base_resources" {
     bucket  = "lms-playground"
     region  = "us-east-2"
     encrypt = true
-    key     = "yes"
+    key     = "terraform.tfstate"
   }
 }
 
@@ -39,10 +39,11 @@ module "product_service" {
   container_definitions = {
 
     (var.container_name) = {
-      cpu       = 512
-      memory    = 1024
-      essential = true
-      image     = var.imageurl
+      cpu         = 512
+      memory      = 1024
+      essential   = true
+      image       = var.imageurl
+      interactive = true
       port_mappings = [
         {
           name          = local.container_name
@@ -87,7 +88,7 @@ module "product_service" {
       from_port                = var.container_port
       to_port                  = var.container_port
       protocol                 = "tcp"
-      description              = "User Service Port"
+      description              = "Product Service Port"
       source_security_group_id = data.terraform_remote_state.base_resources.outputs.security_group_id
     }
 
