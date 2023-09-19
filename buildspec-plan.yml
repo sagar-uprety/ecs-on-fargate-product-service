@@ -8,7 +8,7 @@ phases:
       - echo $AWS_ACCOUNT_ID - $AWS_DEFAULT_REGION
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 426857564226.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - docker build -t product:latest ./app
-      - image_id=$(docker images | grep "product" | awk '{print $3}' | cut -c1-5)
+      - image_id=$CODEBUILD_RESOLVED_SOURCE_VERSION
       - docker tag product:latest  $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/lms-product-ms:$image_id
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/lms-product-ms:$image_id
       - printf 'imageurl="%s"' "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/lms-product-ms:$image_id" > imageurl.tfvars
