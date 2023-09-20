@@ -30,31 +30,6 @@ app.get("/products", async (req, res) => {
 });
 
 
-// Route to get products data by ID from DynamoDB
-app.get("/products/:id", async (req, res) => {
-  try {
-    const productId = req.params.id;
-
-    const command = new GetCommand({
-      TableName: dynamodbTableName, // Replace with your DynamoDB table name
-      Key: {
-        id: productId,
-      },
-    });
-
-    const response = await docClient.send(command);
-
-    if (response.Item) {
-      res.status(200).json(response.Item);
-    } else {
-      res.status(404).json({ message: "Product not found" });
-    }
-  } catch (error) {
-    console.error(`Error: ${error.message}`);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
 // Route to insert data for seeding the DynamoDB table
 app.get("/products/insertproductdata", async (req, res) => {
   try {
@@ -95,6 +70,31 @@ app.get("/products/insertproductdata", async (req, res) => {
     }
 
     res.status(200).json({ message: "Data insertion completed." });
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Route to get products data by ID from DynamoDB
+app.get("/products/:id", async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    const command = new GetCommand({
+      TableName: dynamodbTableName, // Replace with your DynamoDB table name
+      Key: {
+        id: productId,
+      },
+    });
+
+    const response = await docClient.send(command);
+
+    if (response.Item) {
+      res.status(200).json(response.Item);
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
   } catch (error) {
     console.error(`Error: ${error.message}`);
     res.status(500).json({ message: "Internal server error" });
