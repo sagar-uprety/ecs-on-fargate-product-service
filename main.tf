@@ -30,7 +30,7 @@ module "product_service" {
   desired_count          = 1
   enable_autoscaling     = true
   enable_execute_command = true
-  force_new_deployment   = true
+  force_new_deployment   = false
 
   network_mode = "awsvpc"
 
