@@ -1,4 +1,7 @@
-#Buildspec to provision ecs service through terraform
+################################################################################
+# Buildspec to provision ecs service through terraform
+################################################################################
+
 version: 0.2
 phases:
 
@@ -12,4 +15,4 @@ phases:
     commands:
       - terraform init
       - echo "Applying.."
-      - terraform apply -var-file="product.tfvars" -var-file="imageurl.tfvars" --auto-approve
+      - terraform apply -var-file="dev.tfvars" -var-file="imageurl.tfvars" --auto-approve

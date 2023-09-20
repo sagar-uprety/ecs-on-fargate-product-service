@@ -1,4 +1,6 @@
+################################################################################
 # Buildspec to pull the latest version of the Docker image from docker hub and deploy it to the ECS cluster also perform terraform plan
+################################################################################
 version: 0.2
 phases:
 
@@ -23,7 +25,7 @@ phases:
       - terraform validate
   post_build:
     commands:
-      - terraform plan -var-file="product.tfvars" -var-file="imageurl.tfvars"
+      - terraform plan -var-file="dev.tfvars" -var-file="imageurl.tfvars"
 
 artifacts:
   files:
