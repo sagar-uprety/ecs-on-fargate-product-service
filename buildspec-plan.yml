@@ -12,6 +12,7 @@ phases:
       - docker tag product:latest  $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/lms-product-ms:$image_id
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/lms-product-ms:$image_id
       - echo "imageurl=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/lms-product-ms:$image_id" > imageurl.tfvars
+      - echo "" >> imageurl.tfvars
 
   build:
     commands:
