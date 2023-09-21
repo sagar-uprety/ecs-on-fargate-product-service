@@ -71,11 +71,12 @@ module "product_service" {
   container_definitions = {
 
     (var.container_name) = {
-      cpu         = 512
-      memory      = 1024
-      essential   = true
-      image       = var.imageurl
-      interactive = true
+      cpu                      = 512
+      memory                   = 1024
+      essential                = true
+      image                    = var.imageurl
+      interactive              = true
+      readonly_root_filesystem = false
       port_mappings = [
         {
           name          = local.container_name
