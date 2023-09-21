@@ -29,13 +29,8 @@ app.get("/products", async (req, res) => {
   }
 });
 
-app.get("/test", async (req, res) => {
-  res.json({ message: "Test successful" });
-})
-
 // Route to insert data for seeding the DynamoDB table
-app.get("/products/insert/productdata", async (req, res) => {
-  console.log("Inserting data into DynamoDB table")
+app.get("/products/insertproductdata", async (req, res) => {
   try {
     // Check if the data already exists in the DynamoDB table
     const existingData = await checkIfDataExists();
