@@ -2,8 +2,6 @@
 # Defines the resources to be created
 ################################################################################
 
-#Product_Service
-
 data "terraform_remote_state" "base_resources" {
   backend = "s3"
   config = {
@@ -14,6 +12,7 @@ data "terraform_remote_state" "base_resources" {
   }
 }
 
+# Product Service
 module "product_service" {
   source                             = "terraform-aws-modules/ecs/aws//modules/service"
   version                            = "5.2.2"
