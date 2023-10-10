@@ -69,7 +69,7 @@ module "product_service" {
   # Container definition(s)
   container_definitions = {
 
-    (var.container_name) = {
+    (local.container_name) = {
       cpu                      = 512
       memory                   = 1024
       essential                = true
@@ -97,19 +97,19 @@ module "product_service" {
     namespace = data.terraform_remote_state.base_resources.outputs.ecs_service_discovery_arn
     service = {
       client_alias = {
-        port     = var.container_port
-        dns_name = var.container_name
+        port     = local.container_port
+        dns_name = local.container_name
       }
-      port_name      = var.container_name
-      discovery_name = var.container_name
+      port_name      = local.container_name
+      discovery_name = local.container_name
     }
   }
 
   load_balancer = {
     service = {
       target_group_arn = element(data.terraform_remote_state.base_resources.outputs.target_group_arn, 1)
-      container_name   = var.container_name
-      container_port   = var.container_port
+      container_name   = local.container_name
+      container_port   = local.container_port
     }
   }
 
@@ -117,8 +117,8 @@ module "product_service" {
   security_group_rules = {
     alb_ingress_3000 = {
       type                     = "ingress"
-      from_port                = var.container_port
-      to_port                  = var.container_port
+      from_port                = local.container_port
+      to_port                  = local.container_port
       protocol                 = "tcp"
       description              = "Product Service Port"
       source_security_group_id = data.terraform_remote_state.base_resources.outputs.security_group_id
@@ -126,8 +126,8 @@ module "product_service" {
 
     internal_communication = {
       type        = "ingress"
-      from_port   = var.container_port
-      to_port     = var.container_port
+      from_port   = local.container_port
+      to_port     = local.container_port
       protocol    = "tcp"
       description = "User Service Port"
       cidr_blocks = ["10.0.0.0/8", "127.0.0.0/8"]
