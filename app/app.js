@@ -29,6 +29,10 @@ app.get("/products", async (req, res) => {
   }
 });
 
+app.get("/products/test", async (req, res) => {
+  res.send("Hello from product service test route")
+})
+
 // Route to insert data for seeding the DynamoDB table
 app.get("/products/insertproductdata", async (req, res) => {
   try {
